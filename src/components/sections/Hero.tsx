@@ -1,5 +1,6 @@
 import { GradientButton } from "../ui/gradient-button";
 import { Twitter } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export const Hero = () => {
   return (
@@ -13,10 +14,12 @@ export const Hero = () => {
           Let our AI agent handle your Twitter engagement while you focus on what matters. Grow your audience, engage with followers, and maintain a consistent presence automatically.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <GradientButton className="group">
-            <Twitter className="mr-2 h-5 w-5" />
-            Connect with Twitter
-          </GradientButton>
+          <Link to="/auth">
+            <GradientButton className="group">
+              <Twitter className="mr-2 h-5 w-5" />
+              Get Started
+            </GradientButton>
+          </Link>
           <button className="px-6 py-3 text-gray-300 hover:text-white transition-colors">
             Learn More →
           </button>

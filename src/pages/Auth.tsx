@@ -15,7 +15,10 @@ const Auth = () => {
 
   // Check if we're in an authentication callback
   useEffect(() => {
+    console.log("Auth component mounted");
+    
     const { data: authListener } = supabase.auth.onAuthStateChange(async (event, session) => {
+      console.log("Auth state changed:", event, session);
       if (event === "SIGNED_IN" && session) {
         navigate("/");
       }
@@ -23,6 +26,7 @@ const Auth = () => {
 
     // Check current session
     supabase.auth.getSession().then(({ data: { session } }) => {
+      console.log("Current session:", session);
       if (session) {
         navigate("/");
       }
@@ -79,20 +83,29 @@ const Auth = () => {
   };
 
   const handleTwitterSignIn = async () => {
+    console.log("Starting Twitter sign in");
+    setLoading(true);
     try {
-      const { error } = await supabase.auth.signInWithOAuth({
+      const { data, error } = await supabase.auth.signInWithOAuth({
         provider: "twitter",
         options: {
-          redirectTo: window.location.origin + "/auth"
+          redirectTo: `${window.location.origin}/auth`,
+          queryParams: {
+            redirect_to: `${window.location.origin}/auth`
+          }
         }
       });
+      console.log("Twitter sign in response:", { data, error });
       if (error) throw error;
     } catch (error: any) {
+      console.error("Twitter sign in error:", error);
       toast({
         title: "Error",
         description: error.message,
         variant: "destructive",
       });
+    } finally {
+      setLoading(false);
     }
   };
 

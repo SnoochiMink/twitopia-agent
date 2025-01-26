@@ -88,7 +88,8 @@ const Auth = () => {
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: "twitter",
         options: {
-          redirectTo: "https://e05387a6-38ce-456a-8296-8fb91f692dac.lovableproject.com/auth"
+          redirectTo: window.location.origin,
+          scopes: "tweet.read users.read"
         }
       });
       console.log("Twitter sign in response:", { data, error });

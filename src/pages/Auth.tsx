@@ -13,7 +13,6 @@ const Auth = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  // Check if we're in an authentication callback
   useEffect(() => {
     console.log("Auth component mounted");
     
@@ -89,10 +88,7 @@ const Auth = () => {
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: "twitter",
         options: {
-          redirectTo: `${window.location.origin}/auth`,
-          queryParams: {
-            redirect_to: `${window.location.origin}/auth`
-          }
+          redirectTo: "https://e05387a6-38ce-456a-8296-8fb91f692dac.lovableproject.com/auth"
         }
       });
       console.log("Twitter sign in response:", { data, error });

@@ -9,6 +9,54 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      agent_stats: {
+        Row: {
+          action_type: string
+          created_at: string
+          details: Json | null
+          id: number
+          status: string
+          tweet_id: string | null
+        }
+        Insert: {
+          action_type: string
+          created_at?: string
+          details?: Json | null
+          id?: number
+          status: string
+          tweet_id?: string | null
+        }
+        Update: {
+          action_type?: string
+          created_at?: string
+          details?: Json | null
+          id?: number
+          status?: string
+          tweet_id?: string | null
+        }
+        Relationships: []
+      }
+      agent_uptime: {
+        Row: {
+          ended_at: string | null
+          id: number
+          started_at: string
+          status: string
+        }
+        Insert: {
+          ended_at?: string | null
+          id?: number
+          started_at?: string
+          status: string
+        }
+        Update: {
+          ended_at?: string | null
+          id?: number
+          started_at?: string
+          status?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null

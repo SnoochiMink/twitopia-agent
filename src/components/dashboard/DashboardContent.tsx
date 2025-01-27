@@ -1,7 +1,55 @@
+import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { BookOpen, GitBranch } from "lucide-react";
+import { BookOpen, GitBranch, Twitter } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+
+interface AgentAction {
+  id: number;
+  created_at: string;
+  action_type: string;
+  status: string;
+  tweet_id: string | null;
+}
 
 export const DashboardContent = () => {
+  const [recentActions, setRecentActions] = useState<AgentAction[]>([]);
+
+  useEffect(() => {
+    const fetchRecentActions = async () => {
+      const { data } = await supabase
+        .from("agent_stats")
+        .select("*")
+        .order("created_at", { ascending: false })
+        .limit(5);
+
+      if (data) {
+        setRecentActions(data);
+      }
+    };
+
+    fetchRecentActions();
+
+    // Set up realtime subscription
+    const channel = supabase
+      .channel('schema-db-changes')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'agent_stats'
+        },
+        () => {
+          fetchRecentActions();
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, []);
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
       <Card className="bg-black/20 border-white/10 text-white">
@@ -9,7 +57,27 @@ export const DashboardContent = () => {
           <CardTitle className="text-lg">Recent Activity</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-gray-400">No recent activity to display</p>
+          {recentActions.length > 0 ? (
+            <div className="space-y-4">
+              {recentActions.map((action) => (
+                <div
+                  key={action.id}
+                  className="flex items-center gap-2 text-sm border-b border-white/10 pb-2 last:border-0"
+                >
+                  <Twitter className="w-4 h-4 text-blue-400" />
+                  <div>
+                    <span className="text-blue-400">{action.action_type}</span>
+                    <span className="text-gray-400"> - {action.status}</span>
+                    <div className="text-xs text-gray-500">
+                      {new Date(action.created_at).toLocaleString()}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="text-sm text-gray-400">No recent activity to display</p>
+          )}
         </CardContent>
       </Card>
 

@@ -61,7 +61,29 @@ export const DashboardContent = ({ activePanel = "dashboard" }: DashboardContent
           <CardTitle className="text-lg">Character Settings</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-sm text-gray-400">Character configuration panel coming soon...</p>
+          <div className="space-y-6">
+            <div>
+              <h3 className="text-sm font-medium mb-2">Personality</h3>
+              <textarea 
+                className="w-full h-32 bg-black/20 border border-white/10 rounded-md p-3 text-sm"
+                placeholder="Describe your agent's personality..."
+              />
+            </div>
+            <div>
+              <h3 className="text-sm font-medium mb-2">Interests</h3>
+              <textarea 
+                className="w-full h-32 bg-black/20 border border-white/10 rounded-md p-3 text-sm"
+                placeholder="What topics should your agent tweet about?"
+              />
+            </div>
+            <div>
+              <h3 className="text-sm font-medium mb-2">Voice & Tone</h3>
+              <textarea 
+                className="w-full h-32 bg-black/20 border border-white/10 rounded-md p-3 text-sm"
+                placeholder="How should your agent express itself?"
+              />
+            </div>
+          </div>
         </CardContent>
       </Card>
     );

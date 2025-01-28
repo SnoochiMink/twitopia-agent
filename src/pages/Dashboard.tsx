@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { DashboardHeader } from "@/components/dashboard/DashboardHeader";
@@ -10,6 +10,7 @@ import { House } from "lucide-react";
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const [activePanel, setActivePanel] = useState("dashboard");
 
   useEffect(() => {
     const checkUser = async () => {
@@ -32,15 +33,19 @@ const Dashboard = () => {
     };
   }, [navigate]);
 
+  const handlePanelChange = (panel: string) => {
+    setActivePanel(panel);
+  };
+
   return (
     <div className="min-h-screen bg-[#0A0A1B] text-white relative">
       <div className="flex">
-        <DashboardSidebar />
+        <DashboardSidebar activePanel={activePanel} onPanelChange={handlePanelChange} />
         <div className="flex-1 p-8">
           <div className="max-w-7xl mx-auto">
             <DashboardHeader />
-            <DashboardStats />
-            <DashboardContent />
+            {activePanel === "dashboard" && <DashboardStats />}
+            <DashboardContent activePanel={activePanel} />
           </div>
         </div>
       </div>

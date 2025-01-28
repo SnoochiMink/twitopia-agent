@@ -1,5 +1,4 @@
 import { FileJson, Terminal, Database, Users, HardDrive, Zap, GitBranch, BookOpen, Boxes, Settings } from "lucide-react";
-import { useState } from "react";
 
 const menuItems = [
   { icon: FileJson, label: "Dashboard", id: "dashboard" },
@@ -14,13 +13,12 @@ const menuItems = [
   { icon: Settings, label: "Project Settings" },
 ];
 
-export const DashboardSidebar = () => {
-  const [activePanel, setActivePanel] = useState("dashboard");
+interface DashboardSidebarProps {
+  onPanelChange: (panel: string) => void;
+  activePanel: string;
+}
 
-  const handleMenuClick = (id: string) => {
-    setActivePanel(id);
-  };
-
+export const DashboardSidebar = ({ onPanelChange, activePanel }: DashboardSidebarProps) => {
   return (
     <div className="w-64 min-h-screen bg-black/20 border-r border-white/10">
       <div className="p-4">
@@ -34,7 +32,7 @@ export const DashboardSidebar = () => {
                   ? "text-blue-400 bg-white/10" 
                   : "text-gray-300 hover:bg-white/5"
               } rounded-md transition-colors`}
-              onClick={() => item.id && handleMenuClick(item.id)}
+              onClick={() => item.id && onPanelChange(item.id)}
             >
               <item.icon className="w-4 h-4" />
               {item.label}

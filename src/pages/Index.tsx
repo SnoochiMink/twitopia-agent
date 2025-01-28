@@ -26,7 +26,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-[#0A0A1B] text-white">
-      <header className="flex justify-between items-center p-4">
+      <header className="flex justify-end items-center p-4 gap-4">
         <div className="flex gap-4">
           <Link to="/how-it-works">
             <Button variant="ghost" className="text-gray-300 hover:text-white hover:bg-primary/20">

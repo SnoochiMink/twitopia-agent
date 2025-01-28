@@ -28,7 +28,7 @@ export const DashboardHeader = () => {
   return (
     <div className="flex justify-between items-center mb-8">
       <div>
-        <h1 className="text-2xl font-bold text-white mb-2">Project Overview</h1>
+        <h1 className="text-2xl font-bold text-white mb-2">Agent Dashboard</h1>
         <p className="text-sm text-gray-400">Statistics for past 24 hours</p>
       </div>
       <div className="flex gap-4">

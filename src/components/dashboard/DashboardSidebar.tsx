@@ -1,8 +1,9 @@
 import { FileJson, Terminal, Database, Users, HardDrive, Zap, GitBranch, BookOpen, Boxes, Settings } from "lucide-react";
+import { useState } from "react";
 
 const menuItems = [
-  { icon: FileJson, label: "Table Editor" },
-  { icon: Terminal, label: "SQL Editor" },
+  { icon: FileJson, label: "Dashboard", id: "dashboard" },
+  { icon: Terminal, label: "Character", id: "character" },
   { icon: Database, label: "Database" },
   { icon: Users, label: "Authentication" },
   { icon: HardDrive, label: "Storage" },
@@ -14,6 +15,12 @@ const menuItems = [
 ];
 
 export const DashboardSidebar = () => {
+  const [activePanel, setActivePanel] = useState("dashboard");
+
+  const handleMenuClick = (id: string) => {
+    setActivePanel(id);
+  };
+
   return (
     <div className="w-64 min-h-screen bg-black/20 border-r border-white/10">
       <div className="p-4">
@@ -22,7 +29,12 @@ export const DashboardSidebar = () => {
           {menuItems.map((item, index) => (
             <button
               key={index}
-              className="flex items-center gap-3 w-full px-4 py-2 text-sm text-gray-300 hover:bg-white/5 rounded-md transition-colors"
+              className={`flex items-center gap-3 w-full px-4 py-2 text-sm ${
+                activePanel === item.id 
+                  ? "text-blue-400 bg-white/10" 
+                  : "text-gray-300 hover:bg-white/5"
+              } rounded-md transition-colors`}
+              onClick={() => item.id && handleMenuClick(item.id)}
             >
               <item.icon className="w-4 h-4" />
               {item.label}

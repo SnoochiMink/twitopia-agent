@@ -11,7 +11,11 @@ interface AgentAction {
   tweet_id: string | null;
 }
 
-export const DashboardContent = () => {
+interface DashboardContentProps {
+  activePanel?: string;
+}
+
+export const DashboardContent = ({ activePanel = "dashboard" }: DashboardContentProps) => {
   const [recentActions, setRecentActions] = useState<AgentAction[]>([]);
 
   useEffect(() => {
@@ -49,6 +53,19 @@ export const DashboardContent = () => {
       supabase.removeChannel(channel);
     };
   }, []);
+
+  if (activePanel === "character") {
+    return (
+      <Card className="bg-black/20 border-white/10 text-white">
+        <CardHeader>
+          <CardTitle className="text-lg">Character Settings</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="text-sm text-gray-400">Character configuration panel coming soon...</p>
+        </CardContent>
+      </Card>
+    );
+  }
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

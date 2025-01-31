@@ -16,6 +16,8 @@ export type Database = {
           interests: string | null
           is_active: boolean | null
           personality: string | null
+          twitter_password: string | null
+          twitter_username: string | null
           updated_at: string
           user_id: string
           voice_tone: string | null
@@ -26,6 +28,8 @@ export type Database = {
           interests?: string | null
           is_active?: boolean | null
           personality?: string | null
+          twitter_password?: string | null
+          twitter_username?: string | null
           updated_at?: string
           user_id: string
           voice_tone?: string | null
@@ -36,6 +40,8 @@ export type Database = {
           interests?: string | null
           is_active?: boolean | null
           personality?: string | null
+          twitter_password?: string | null
+          twitter_username?: string | null
           updated_at?: string
           user_id?: string
           voice_tone?: string | null

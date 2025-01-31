@@ -11,6 +11,11 @@ export type Database = {
     Tables: {
       agent_configurations: {
         Row: {
+          agent_constraints: string[] | null
+          agent_goals: string[] | null
+          agent_name: string | null
+          agent_role: string | null
+          agent_tools: Json | null
           created_at: string
           id: string
           interests: string | null
@@ -23,6 +28,11 @@ export type Database = {
           voice_tone: string | null
         }
         Insert: {
+          agent_constraints?: string[] | null
+          agent_goals?: string[] | null
+          agent_name?: string | null
+          agent_role?: string | null
+          agent_tools?: Json | null
           created_at?: string
           id?: string
           interests?: string | null
@@ -35,6 +45,11 @@ export type Database = {
           voice_tone?: string | null
         }
         Update: {
+          agent_constraints?: string[] | null
+          agent_goals?: string[] | null
+          agent_name?: string | null
+          agent_role?: string | null
+          agent_tools?: Json | null
           created_at?: string
           id?: string
           interests?: string | null
